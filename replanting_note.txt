@@ -1,0 +1,50 @@
+https://donate.plant-for-the-planet.org/?to=planbe-forest&frequency=once&units=1&callback_url=https%3A%2F%2Fwww.example.com%2Fdonation%2Fcallback&callback_method=api'
+
+frequency= once or monthly or annualy
+
+PARAMS
+to
+
+planbe-forest
+
+Unique identifier for a project to donate. Project IDs or slug for a project can be retrieved from Projects List API.
+context
+
+don_
+
+Unique identifier for the donation. To be used with completed or pending donations. Donation ID can be created with Donation API or it will be created once the user submits the billing information.
+units
+
+10
+
+Units intended to be collected by this donation. A positive integer representing how many units to prefill the donation form. Units are multiplied by the unitcost and final amount is presented to the user. Depending on the purpose of donation, an unit may refer to one tree, one hectare or unit of currency eg 1 EUR.
+s
+
+felix-finkbeiner
+
+Username associated with the gift/dedication of the donation.
+tenant
+
+ten_1e5WejOp
+
+Unique identifier for a tenant, if none is passed, default Tenant for Plant-for-the-Planet is used.
+country
+
+us
+
+Two-letter ISO currency code, in lowercase. Must be a supported currency. Country is used for donation tax deduction checks. Currently many projects support tax deductions for DE and US.
+frequency
+
+once
+
+Frequency intended to applied for the Donation. Supports once,monthly, and annually.
+callback_url
+
+https://www.example.com/donation/callback
+callback_method
+
+api
+
+Accepts method = api or null. Sends donation context back to the callback_url and donation status if status = success or pending
+
+curl --location 'https://donate.plant-for-the-planet.org/?to=planbe-forest&context=don_&frequency=once&callback_url=https%3A%2F%2Fwww.example.com%2Fdonation%2Fcallback&callback_method=api'

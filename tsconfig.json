@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "types": ["node", "axios"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "target": "es2015",
+    "lib": ["es6", "dom"],
+    "downlevelIteration": true /* AGGIUNTO PER QUESTO PROJ SPECIFICO. */,
+    "module": "commonjs",
+    "rootDir": "src",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "noImplicitAny": true,
+    "outDir": "build"
+  }
+}

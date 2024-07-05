@@ -1,0 +1,82 @@
+name application co2-bot
+environment : Co2-bot-env
+co2-bot.us-west-2.elasticbeanstalk.com
+
+
+
+aws develo : https://www.youtube.com/watch?v=Ji8i_2vinBo
+
+tsc --downlevelIteration server.ts          ---------altrimenti da une errore
+
+-aggiungere funzioni sul bot (divieto di video o immagini se superata media mensile totale o per utemte?)
+
+-aggiungere quindi un campo al gruppo se in linea o bloccato 
+
+-serve il creatore del gruppo x settare limiti non si puo aver forse admin si!
+
+-gestire tuttte queste cose e forse poll + allegati generici- se danno errore e se contati bene :  const messageType = ctx.message.document ? "document" :
+                      ctx.message.photo ? "photo" :
+                      ctx.message.video ? "video" :
+                      ctx.message.voice ? "voice" :
+                      ctx.message.animation ? "animation" :
+                      ctx.message.sticker ? "sticker" :
+
+provare 10 min come limite
+
+
+
+
+tutti i report:
+https://co2backend.onrender.com/api/v1/reports 
+
+tutti i report di un gruppo:
+https://co2backend.onrender.com/api/v1/reports?groupId=-1002248332369 
+
+tutti i report piu vecchi o uguali di una data:
+https://co2backend.onrender.com/api/v1/reports?timestamp[lte]=2024-06-07T11:28:01.195Z
+
+tutti i report piu vecchi di una data:
+https://co2backend.onrender.com/api/v1/reports?timestamp[lt]=2024-06-07T11:28:01.195Z
+
+tutti i report piu pesanti di tot kb 
+https://co2backend.onrender.com/api/v1/reports?totalSizeKB[gt]=1600
+
+
+
+
+
+
+
+name: CICD
+
+on:
+  push:
+    branches:
+      - aws
+
+jobs:
+  build-and-deploy:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Dependencies
+        run: npm install
+      - name: Genrate Deployment Package
+        run: zip -r bot.zip .
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: "bot"
+          environment_name: "Bot"
+          version_label: ${{ github.sha }}
+          region: us-west-2
+          deployment_package: bot-server-co2.zip
+          use_existing_version_if_available: true
+          wait_for_deployment: true
